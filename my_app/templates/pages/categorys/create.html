@@ -10,18 +10,40 @@
                 <div class="box-header ui-sortable-handle" style="cursor: move;">
                     <h3 class="box-title">Category Form</h3>
 
+
                 </div><!-- /.box-header -->
                 <div class="box-body">
                     <form action="/category/create" method="post">
                         {% csrf_token %}
-                        <div class="form-group">
-                            <label for="email">Category Name:</label>
-                            <input type="text" class="form-control" name="category_name" id="email" required>
-                        </div>
-                        <button type="submit" class="btn btn-success">Create</button>
-                        <a href="/category/index" class="text text-primary">Category List</a>
+                         <div class="row">
+                            <div class="col-lg-4">
+                                <label for="email">Category Name:</label>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="category_name"  required>
+                            </div>
+                         </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-lg-6">
+                            {% if perms.my_app.add_category %}
+                            <button type="submit" class="btn btn-success">Create</button>
+                            {% endif %}
+                            <a href="/category/index" class="text text-primary">Category List</a>
+                                {% if messages %}
+                                    {% for message in messages %}
+                                    	{% if message %}
+                                            <p style="color:#00a65a;font-size:16px;">{{ message }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+                                {% endif %} 
 
+                            </div>
+                        </div>
                     </form>
+
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix no-border">
 
