@@ -25,4 +25,7 @@ urlpatterns = [
     #--------------route authentication---------------
     path("login/",authentication_views.my_authentication),
     path("logout/",authentication_views.my_logout),
+path("user/index", authentication_views.index),
+path("user/show", authentication_views.show),
+    path("user/create", authentication_views.create_user),
 ]

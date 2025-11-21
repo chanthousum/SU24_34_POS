@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+
+{% load static %}
+{% block content %}
+
+    <section class="content">
+
+        <div class="row">
+            <div class="box box-primary">
+                <div class="box-header ui-sortable-handle" style="cursor: move;">
+                    <h3 class="box-title">{{ title}}</h3>
+
+
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <form action="/category/update_by_id/{{ category.id }}" method="post">
+                        {% csrf_token %}
+                         <div class="row">
+                            <div class="col-lg-4">
+                                <label for="email">Category Name:</label>
+                            </div>
+                         </div>
+                         <div class="row">
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" name="category_name" value="{{ category.category_name }}"  required>
+                            </div>
+                         </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-lg-6">
+                             {% if perms.my_app.change_category %}
+                            <button type="submit" class="btn btn-success">Update</button>
+                            {% endif %}
+                            <a href="/category/index" class="text text-primary">Category List</a>
+                                {% if messages %}
+                                    {% for message in messages %}
+                                    	{% if message %}
+                                            <p style="color:#00a65a;font-size:16px;">{{ message }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+                                {% endif %} 
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix no-border">
+
+                </div>
+            </div>
+        </div><!-- /.row (main row) -->
+
+    </section>
+
+{% endblock %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert"
+             id="django-message-{{ forloop.counter }}">
+            <p style="color:red">{{ message }}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}

@@ -79,8 +79,8 @@ DATABASES = {
         'NAME': 'su24_34_pos_db',
         'USER': 'postgres',
         'PASSWORD': 'Password123@',
-        'HOST': 'localhost',
-        'PORT': '5433',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
