@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
+from django.conf import settings
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,9 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p(umz-2tpo^i@37&a2jauuysadmu)f5jy(n**-evv)2t^h7nn!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+from dotenv import load_dotenv
+load_dotenv()  # Load .env file
 DEBUG = False
-
-ALLOWED_HOSTS = ["*","93.127.128.86","127.0.0.1","localhost"]
+ALLOWED_HOSTS = ["*","itsmarters.com","www.itsmarters.com"]
 
 
 
@@ -75,16 +78,39 @@ WSGI_APPLICATION = 'SU24_34_POS.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'su24_34_pos_db',
-        'USER': 'postgres',
-        'PASSWORD': 'Password123@',
-        'HOST': 'db',
-        'PORT': '5432',
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'su24_34_pos_db',
+#         'USER': 'postgres',
+#         'PASSWORD': 'Password123@',
+#         'HOST': 'db',
+#         'PORT': '5432',
+#     }
+# }
+# Database configuration
+if settings.DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': "su24_34_pos_db",
+            'USER': "postgres",
+            'PASSWORD': "Password123@",
+            'HOST': "localhost",
+            'PORT': "5434",
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('POSTGRES_DB'),
+            'USER': os.getenv("POSTGRES_USER"),
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+            'HOST': os.getenv("POSTGRES_HOST", "db"),   # docker-compose service name
+            'PORT': os.getenv("POSTGRES_PORT", "5432"),
+        }
+    }
 
 
 
