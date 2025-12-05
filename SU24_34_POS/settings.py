@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-p(umz-2tpo^i@37&a2jauuysadmu)f5jy(n**-evv)2t^h7nn!
 from dotenv import load_dotenv
 load_dotenv()  # Load .env file
 DEBUG = False
-ALLOWED_HOSTS = ["*","itsmarters.com","www.itsmarters.com"]
+ALLOWED_HOSTS = ["*","13.211.132.47"]
 
 
 
